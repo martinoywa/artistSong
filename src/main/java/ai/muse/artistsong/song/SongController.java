@@ -1,8 +1,10 @@
 package ai.muse.artistsong.song;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -27,8 +29,15 @@ public class SongController {
     }
 
     @DeleteMapping(value = "{id}")
-    public void removeSong(@PathVariable Long id) {
+    public void removeSong(@PathVariable("id") Long id) {
         songService.removeSong(id);
+    }
+
+    @PutMapping(value = "{id}")
+    public void updateSongDetails(@PathVariable("id") Long id,
+                                  @RequestParam(required = false) String album,
+                                  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate release) {
+        songService.updateSongDetails(id, album, release);
     }
 
 }
