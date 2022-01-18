@@ -28,4 +28,12 @@ public class SongService {
         }
         songRepository.save(song);
     }
+
+    public void removeSong(Long id) {
+        if (songRepository.findById(id).isPresent()) {
+            songRepository.deleteById(id);
+        } else {
+            throw new IllegalStateException("Song by id " + id + " not present");
+        }
+    }
 }

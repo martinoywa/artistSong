@@ -26,4 +26,9 @@ public class SongController {
         songService.addNewSong(song);
     }
 
+    @DeleteMapping(value = "{id}")
+    public void removeSong(@PathVariable Long id) {
+        songService.removeSong(id);
+    }
+
 }
