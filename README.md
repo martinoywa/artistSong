@@ -3,7 +3,7 @@ RESTful API for songs and their details built using Spring Boot
 
 ## Running the application
 
-- Setup a PostgreSQL database table called song
+- Setup a PostgreSQL database called song
 - Run the app using Gradle
 ```
 .\gradlew bootRun
