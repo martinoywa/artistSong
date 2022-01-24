@@ -5,11 +5,11 @@ RESTful API for songs and their details built using Spring Boot
 
 - Setup a PostgreSQL database table called song
 - Run the app using Gradle
-```aidl
-gradle bootRun
+```
+.\gradlew bootRun
 ```
 - Requests
-```aidl
+```
 GET http://localhost:8080/api/v1/song
 
 Response
