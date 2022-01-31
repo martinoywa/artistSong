@@ -1,10 +1,13 @@
 package ai.muse.artistsong.song;
 
+import ai.muse.artistsong.artist.Artist;
+import ai.muse.artistsong.artist.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -13,10 +16,12 @@ import java.util.Optional;
 public class SongService {
 
     private final SongRepository songRepository;
+    private final ArtistRepository artistRepository;
 
     @Autowired
-    public SongService(SongRepository songRepository) {
+    public SongService(SongRepository songRepository, ArtistRepository artistRepository) {
         this.songRepository = songRepository;
+        this.artistRepository = artistRepository;
     }
 
     public List<Song> getSongs() {
@@ -30,6 +35,20 @@ public class SongService {
             throw new IllegalStateException("Song " + song.getName() + " by " + song.getArtist() + " already exists");
         }
         songRepository.save(song);
+
+        Artist artist = artistRepository.findArtistByArtistName(song.getArtist())
+                .orElseThrow(() ->  new IllegalStateException("Song not present"));
+//                .orElse(artistRepository.save(
+//                        new Artist(
+//                                song.getArtist(),
+//                                null,
+//                                0L
+//                        )
+//                ));
+
+        if (artist.getId() != null) {
+            artist.setNumberOfTitles(artist.getNumberOfTitles()+1);
+        }
     }
 
     public void removeSong(Long id) {

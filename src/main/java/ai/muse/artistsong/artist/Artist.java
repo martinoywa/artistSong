@@ -40,6 +40,11 @@ public class Artist {
         this.numberOfTitles = numberOfTitles;
     }
 
+    public Artist(Long id, Long numberOfTitles) {
+        this.id = id;
+        this.numberOfTitles = numberOfTitles;
+    }
+
     public Long getId() {
         return id;
     }

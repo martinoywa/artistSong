@@ -16,13 +16,6 @@ public class SongConfig {
     @Bean
     CommandLineRunner commandLineRunner(SongRepository songRepository) {
         return args -> {
-            Song withoutMe = new Song(
-                    "Without Me",
-                    "Halsey",
-                    "Manic",
-                    LocalDate.of(2018, OCTOBER, 4)
-            );
-
             Song noRightToLoveYou = new Song(
                     "No Right To Love You",
                     "Rhys Lewis",
@@ -31,7 +24,7 @@ public class SongConfig {
             );
 
             songRepository.saveAll(
-                    List.of(withoutMe, noRightToLoveYou)
+                    List.of(noRightToLoveYou)
             );
         };
     }
