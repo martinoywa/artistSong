@@ -2,10 +2,10 @@ package ai.muse.artistsong.artist;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -22,6 +22,12 @@ public class ArtistController {
     @GetMapping
     public List<Artist> getArtists() {
         return artistService.getArtists();
+    }
+
+    @PutMapping(value = "{id}")
+    public void updateArtistDoB(@PathVariable("id") Long id,
+                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dob) {
+        artistService.updateArtistDoB(id, dob);
     }
 
 }
