@@ -8,7 +8,7 @@ RESTful API for songs and their details built using Spring Boot
 ```
 .\gradlew bootRun
 ```
-- Requests
+- Song Requests
 ```
 GET http://localhost:8080/api/v1/song
 
@@ -50,4 +50,25 @@ DELETE http://localhost:8080/api/v1/song/1
 
 ```
 PUT http://localhost:8080/api/v1/song/1?album=Panic at the Disco!&release=2020-05-22
+```
+
+- Artist Requests
+
+```
+GET http://localhost:8080/api/v2/artist
+
+Response
+
+[
+  {
+    "id": 1,
+    "artistName": "Halsey",
+    "dob": null,
+    "numberOfTitles": 1
+  }
+]
+```
+
+```
+PUT http://localhost:8080/api/v2/artist/1?dob=1994-09-29
 ```
