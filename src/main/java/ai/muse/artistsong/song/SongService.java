@@ -38,7 +38,7 @@ public class SongService {
         songRepository.save(song);
 
         // get the artist name if they already exist
-        // otherwise add them to the database
+        // otherwise add them to the artist table
         Artist artist = artistRepository.findArtistByArtistName(song.getArtist())
                 .orElseGet(() ->
                 artistRepository.save(
