@@ -28,6 +28,7 @@ public class SongService {
         return songRepository.findAll();
     }
 
+    @Transactional
     public void addNewSong(Song song) {
         Optional<Song> songName = songRepository.findSongsByName(song.getName());
         Optional<Song> artistName = songRepository.findSongsByArtist(song.getArtist());
@@ -36,19 +37,21 @@ public class SongService {
         }
         songRepository.save(song);
 
+        // get the artist name if they already exist
+        // otherwise add them to the database
         Artist artist = artistRepository.findArtistByArtistName(song.getArtist())
-                .orElseThrow(() ->  new IllegalStateException("Song not present"));
-//                .orElse(artistRepository.save(
-//                        new Artist(
-//                                song.getArtist(),
-//                                null,
-//                                0L
-//                        )
-//                ));
+                .orElseGet(() ->
+                artistRepository.save(
+                        new Artist(
+                                song.getArtist(),
+                                null,
+                                0L
+                        )
+                ));
 
-        if (artist.getId() != null) {
-            artist.setNumberOfTitles(artist.getNumberOfTitles()+1);
-        }
+        // update the number of titles and save
+        artist.setNumberOfTitles(artist.getNumberOfTitles()+1);
+//        artistRepository.save(artist);
     }
 
     public void removeSong(Long id) {
